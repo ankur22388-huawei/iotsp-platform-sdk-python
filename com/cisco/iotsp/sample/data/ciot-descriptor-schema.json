@@ -1,0 +1,27 @@
+{
+    "uid": "~~ciot-descriptor-schema",
+    "name": "ciot-descriptor-schema",
+    "schemaType": "THING",
+    "mandateSectionName": null,
+    "description": null,
+    "tag": null,
+    "schema": {
+        "$schema": "http://json-schema.org/draft-04/schema",
+        "additionalProperties": false,
+        "type": "object",
+        "properties": {
+            "name": {
+                "default": "",
+                "type": "string"
+            },
+            "description": {
+                "default": "",
+                "type": "string"
+            },
+            "thingType": {
+                "default": "",
+                "type": "string"
+            }
+        }
+    }
+}

@@ -1,0 +1,14 @@
+{
+  "sectionSchemas": [
+    {
+      "sectionName": "location",
+      "schemaUid": "locationSchemaUid"
+    }
+  ],
+  "sections": {
+      "location": {
+      "latitude": 37.41311862,
+      "longitude": -121.93480968
+    }
+  }
+}

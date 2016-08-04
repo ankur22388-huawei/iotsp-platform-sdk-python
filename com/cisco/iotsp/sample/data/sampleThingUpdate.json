@@ -1,0 +1,33 @@
+{
+  "sectionSchemas": [
+  	{
+      "sectionName": "vendor",
+      "schemaUid": "accountAlias~~ciot-vendor-info-schema"
+    },
+    {
+      "sectionName": "descriptor",
+      "schemaUid": "accountAlias~~ciot-descriptor-schema"
+    },
+    {
+      "sectionName": "location",
+      "schemaUid": "accountAlias~~sampleSchemaLocation"
+    }
+  ],
+  "sections": {
+    "descriptor": {
+      "name": "sensorABC",
+      "thingType": "tempSensor",
+      "description": "Temperature Sensor in Control Room"
+    },
+    "vendor": {
+      "make": "Cisco Systems",
+      "model": "SensorX",
+      "hardwareVersion": "1.0",
+      "firmwareVersion": "1.1"
+    },
+    "location": {
+      "latitude": 37.41311862,
+      "longitude": -121.93480968
+    }
+  }
+}

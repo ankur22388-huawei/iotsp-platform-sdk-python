@@ -1,0 +1,18 @@
+{
+  "make": "Cisco Systems",
+  "model": "SensorX",
+  "uniqueIdentifiers": {
+    "macAddress": "38:4f:3e:99:47:29",
+    "manufacturingId": "a151c893-c7bc-48d6-8494-7e7775dcf3e5",
+    "serialNumber": "d361945a-453b-4504-9226-eb825dda7822"
+  },
+  "thingDetails": {
+    "name": "sensorABC",
+    "type": "tempSensor",
+    "description": "Temperature Sensor in Control Room"
+  },
+  "tags": [
+    "Control Room", "Temperature Sensor"
+  ]
+}
+			

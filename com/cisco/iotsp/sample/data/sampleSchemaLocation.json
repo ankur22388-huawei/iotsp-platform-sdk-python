@@ -1,0 +1,19 @@
+{
+  "name": "sampleSchemaLocation",
+  "schemaType": "THING",
+  "schema": {
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "latitude": {
+        "type": "number",
+        "default": 0.0
+      },
+      "longitude": {
+        "type": "number",
+        "default": 0.0
+      }
+    }
+  }
+}

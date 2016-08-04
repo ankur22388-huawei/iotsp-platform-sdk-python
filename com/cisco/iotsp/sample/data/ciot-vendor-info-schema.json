@@ -1,0 +1,31 @@
+{
+    "uid": "~~ciot-vendor-info-schema",
+    "name": "ciot-vendor-info-schema",
+    "schemaType": "THING",
+    "mandateSectionName": null,
+    "description": null,
+    "tag": null,
+    "schema": {
+        "$schema": "http://json-schema.org/draft-04/schema",
+        "additionalProperties": false,
+        "type": "object",
+        "properties": {
+            "model": {
+                "default": "",
+                "type": "string"
+            },
+            "hardwareVersion": {
+                "default": "0.0",
+                "type": "string"
+            },
+            "firmwareVersion": {
+                "default": "0.0",
+                "type": "string"
+            },
+            "make": {
+                "default": "",
+                "type": "string"
+            }
+        }
+    }
+}
