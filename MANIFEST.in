@@ -1,0 +1,3 @@
+recursive-include com\cisco\iotsp\sample\data *.json
+include com\cisco\iotsp\services.properties
+include License.pdf

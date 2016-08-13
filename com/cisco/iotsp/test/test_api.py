@@ -1,22 +1,20 @@
+#Copyright (c) 2016 by Cisco Systems, Inc. All rights reserved.
 import time
 import os.path
 import os
 
 from com.cisco.iotsp.helper import authentication_helper
 from com.cisco.iotsp.sample import sample_accounts
-from com.cisco.iotsp.sample import sample_accounts_create
 from com.cisco.iotsp.sample import sample_users
-from com.cisco.iotsp.sample import sample_users_create
 from com.cisco.iotsp.sample import sample_user_policies
 from com.cisco.iotsp.sample import sample_schemas
 from com.cisco.iotsp.sample import sample_schemas_create
 from com.cisco.iotsp.sample import sample_things
-from com.cisco.iotsp.sample import sample_things_create
 from com.cisco.iotsp.sample import sample_last_n_observations
 from com.cisco.iotsp.sample import sample_observations
 from com.cisco.iotsp.sample import sample_claims
-from com.cisco.iotsp.sample import sample_claims_create
 from com.cisco.iotsp.sample import sample_presence
+from com.cisco.iotsp.sample import sample_things_create
 
 class TestApi(object) :
     def __init__(self, service_address):
@@ -26,7 +24,7 @@ class TestApi(object) :
         admin_password = 'incorrect'
         admin_email = account_alias + '@cisco.com'
 
-        account_uid = sample_accounts_create.SampleAccountCreate.create_account(service_address, account_alias,
+        account_uid = sample_accounts.SampleAccount.create_account(service_address, account_alias,
                                                                                 admin_email, admin_password)
 
         print("account uid = {0}".format(account_uid))
@@ -75,10 +73,9 @@ class TestApi(object) :
 
     def test_users(self, service_address, token, admin_email) :
         # Test Users service
-        user_create = sample_users_create.SampleUserCreate(service_address, token)
         user = sample_users.SampleUser(service_address, token)
         #policy_uid = account_alias + '~~admin-policy'
-        user_uid = user_create.create_user()
+        user_uid = user.create_user()
         time.sleep(1)
         success_get = user.get_user(user_uid)
         success_gets = user.get_users(admin_email)
@@ -89,9 +86,10 @@ class TestApi(object) :
         # Test Schemas service
         schema_create = sample_schemas_create.SampleSchemasCreate(service_address, token)
         schema = sample_schemas.SampleSchemas(service_address, token)
-        parent = os.path.normpath(os.path.join(os.getcwd(), ".."))
+        basepath = os.path.dirname(__file__)
+        parent = os.path.abspath(os.path.join(basepath, ".."))
         file1 = os.path.join(parent, 'sample', 'data', 'sampleSchemaCustomerAddress.json')
-        schemaUid = schema_create.creat_schema(os.path.normpath(file1))
+        schemaUid = schema_create.creat_schema_from_file(os.path.normpath(file1))
         time.sleep(1)
         success_get = schema.get_schema(schemaUid)
         success_delete = schema.delete_schema(schemaUid)
@@ -99,11 +97,17 @@ class TestApi(object) :
 
     def test_things(self, service_address, token, account_alias):
         # Test Things service
-        thingCreateApi = sample_things_create.SampleThingsCreate(service_address, token)
-        thingApi = sample_things.SampleThings(service_address, token)
-        parent = os.path.normpath(os.path.join(os.getcwd(), ".."))
+        basepath = os.path.dirname(__file__)
+        parent = os.path.abspath(os.path.join(basepath, ".."))
         file_thing = os.path.join(parent, 'sample', 'data', 'sampleThing.json')
+        thingCreateApi = sample_things_create.SampleThingsCreate(service_address, token)
         thing_uid = thingCreateApi.create_thing(file_thing, account_alias)
+        time.sleep(1)
+        thingApi = sample_things.SampleThings(service_address, token)
+        thingApi.delete_thing(thing_uid)
+        time.sleep(1)
+
+        thing_uid = thingApi.create_thing(file_thing, account_alias)
         time.sleep(1)
         thingApi.get_thing(thing_uid)
         thingApi.get_things()
@@ -132,11 +136,11 @@ class TestApi(object) :
 
     def testClaims(self, service_address, token):
         # Test Claims service
-        claim_create = sample_claims_create.SampleClaimsCreate(service_address, token)
         claim = sample_claims.SampleClaims(service_address, token)
-        parent = os.path.normpath(os.path.join(os.getcwd(), ".."))
+        basepath = os.path.dirname(__file__)
+        parent = os.path.abspath(os.path.join(basepath, ".."))
         file_claim = os.path.join(parent, 'sample', 'data', 'sampleClaim.json')
-        claimUid = claim_create.create_claim_from_file(file_claim)
+        claimUid = claim.create_claim()
         success_create = (claimUid != "")
         time.sleep(1)
         sucess_get = claim.get_claim(claimUid)

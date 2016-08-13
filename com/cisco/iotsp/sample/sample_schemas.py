@@ -1,3 +1,4 @@
+#Copyright (c) 2016 by Cisco Systems, Inc. All rights reserved.
 from pprint import pprint
 from com.cisco.iotsp.sdk.schemas.client import *
 from com.cisco.iotsp.sdk.schemas.client.apis import *

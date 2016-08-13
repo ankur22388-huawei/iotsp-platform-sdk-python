@@ -1,5 +1,8 @@
+#Copyright (c) 2016 by Cisco Systems, Inc. All rights reserved.
 from com.cisco.iotsp.sdk.acounts.client import *
 from com.cisco.iotsp.sdk.acounts.client.rest import ApiException
+from com.cisco.iotsp.helper import account_helper
+
 class SampleAccount(object):
 
     def __init__(self, service_address, token) :
@@ -8,6 +11,17 @@ class SampleAccount(object):
         self._api = AccountsApi()
         self._api.api_client.host = host
         configuration.access_token = token
+
+    @staticmethod
+    def create_account(service_address, account_alias, admin_email, admin_password):
+        account_name = 'Cisco IOT Python SDK Test Account'
+        account_type = 'TRIAL'
+        admin_first_name = "admin"
+        admin_last_name = 'Python_SDK_Test_LastName'
+        account_uid = account_helper.AccountHelper.create_account(service_address, account_alias, account_name,
+                                                                  account_type, admin_first_name, admin_last_name,
+                                                                  admin_password, admin_email)
+        return account_uid
 
     def get_account(self, account_uid):
         '''

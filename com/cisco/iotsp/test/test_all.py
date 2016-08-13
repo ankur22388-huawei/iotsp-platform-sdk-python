@@ -1,3 +1,4 @@
+#Copyright (c) 2016 by Cisco Systems, Inc. All rights reserved.
 from __future__ import absolute_import
 
 import ConfigParser
@@ -13,7 +14,7 @@ from com.cisco.iotsp.test import test_workflow
 def read_config():
     try:
         basepath = os.path.dirname(__file__)
-        filepath = os.path.abspath(os.path.join(basepath, "..", "..", "..", "..", "services.properties"))
+        filepath = os.path.abspath(os.path.join(basepath, "..", "services.properties"))
 
         section = 'servicesSection'
         Config = ConfigParser.ConfigParser()
@@ -43,6 +44,7 @@ account_alias = id_generator();
 service_config = read_config()
 service_address = service_config['service_address']
 
+success_api = True
 api_test = test_api.TestApi(service_address)
 success_api = api_test.Test(service_address, account_alias)
 

@@ -1,3 +1,4 @@
+#Copyright (c) 2016 by Cisco Systems, Inc. All rights reserved.
 import json
 from pprint import pprint
 from com.cisco.iotsp.sdk.schemas.client import *
@@ -13,11 +14,20 @@ class SampleSchemasCreate(object) :
         self.api.api_client.host = host
         configuration.access_token = access_token
 
-    def creat_schema(self, json_file_path):
+    def creat_schema_from_file(self, json_file_path):
         try:
             with open(json_file_path) as data_file:
                 schema_json = json.load(data_file)
             pprint(schema_json)
+            return self.creat_schema(schema_json)
+        except Exception as e:
+            print("\n--- creat_schema_from_file failed!!! ---")
+            print(str(e))
+            return ""
+
+
+    def creat_schema(self, schema_json):
+        try:
             request = SchemaCreateRequest()
             request.name = schema_json["name"]
             request.schema_type = schema_json["schemaType"]
