@@ -1,3 +1,4 @@
+#Copyright (c) 2016 by Cisco Systems, Inc. All rights reserved.
 from com.cisco.iotsp.sdk.http_device_connector.client import *
 from com.cisco.iotsp.sdk.http_device_connector.client.apis import *
 from com.cisco.iotsp.sdk.http_device_connector.client.models import *

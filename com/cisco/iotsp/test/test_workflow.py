@@ -1,10 +1,10 @@
+#Copyright (c) 2016 by Cisco Systems, Inc. All rights reserved.
 import os.path
 import os
 import time
 
 from com.cisco.iotsp.helper import authentication_helper
 from com.cisco.iotsp.sample import sample_accounts
-from com.cisco.iotsp.sample import sample_accounts_create
 from com.cisco.iotsp.sample import sample_things
 from com.cisco.iotsp.sample import sample_things_create
 from com.cisco.iotsp.sample.workflow import sample_extend_thing
@@ -21,7 +21,7 @@ class TestWorkflow(object) :
         admin_password = 'incorrect'
         admin_email = account_alias + '@cisco.com'
 
-        account_uid = sample_accounts_create.SampleAccountCreate.create_account(service_address, account_alias,
+        account_uid = sample_accounts.SampleAccount.create_account(service_address, account_alias,
                                                                                 admin_email, admin_password)
 
         print("account uid = {0}".format(account_uid))
@@ -31,11 +31,11 @@ class TestWorkflow(object) :
         token = authentication_helper.AuthenticationHelper.get_token(service_address, admin_email, admin_password)
         print("user account token  = {0}".format(token))
 
-
-        thingCreateApi = sample_things_create.SampleThingsCreate(service_address, token)
-        parent = os.path.normpath(os.path.join(os.getcwd(), ".."))
+        thingApi = sample_things.SampleThings(service_address, token)
+        basepath = os.path.dirname(__file__)
+        parent = os.path.abspath(os.path.join(basepath, ".."))
         file_thing = os.path.join(parent, 'sample', 'data', 'sampleThing.json')
-        thing_uid = thingCreateApi.create_thing(file_thing, account_alias)
+        thing_uid = thingApi.create_thing(file_thing, account_alias)
         time.sleep(1)
 
         success_merge = self.test_merge_thing(service_address, token)
@@ -47,7 +47,7 @@ class TestWorkflow(object) :
 
         success_update = self.test_update_thing(service_address, token, account_alias)
 
-        thingApi = sample_things.SampleThings(service_address, token)
+
         thingApi.delete_thing(thing_uid)
         time.sleep(1)
 

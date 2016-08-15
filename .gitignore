@@ -1,5 +1,7 @@
 codegen
 codegen.sh
 codegen2.sh
+insert_copyright.sh
+copyright.txt
 *.jar
 *.pyc

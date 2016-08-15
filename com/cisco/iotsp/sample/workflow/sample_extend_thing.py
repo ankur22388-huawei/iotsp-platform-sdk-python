@@ -1,3 +1,4 @@
+#Copyright (c) 2016 by Cisco Systems, Inc. All rights reserved.
 import string
 import json
 import os.path
@@ -8,6 +9,7 @@ from com.cisco.iotsp.sdk.things.client.models import *
 from com.cisco.iotsp.sample import sample_schemas
 from com.cisco.iotsp.sample import sample_schemas_create
 from com.cisco.iotsp.sdk.things.client.rest import ApiException
+import pkg_resources
 class SampleExtendThings(object):
     def __init__(self, service_address, access_token):
         print('Extend Thing properties at %s' % service_address)
@@ -22,13 +24,17 @@ class SampleExtendThings(object):
     def merge_thing(self):
         try :
             device_manufacture_id = 'a151c893-c7bc-48d6-8494-7e7775dcf3e5'
-            parent = os.path.normpath(os.path.join(os.getcwd(), ".."))
-            new_schema_file_path = os.path.join(parent, 'sample', 'data', 'sampleSchemaLocation.json')
-            thing_merge_file_path = os.path.join(parent, 'sample', 'data', 'sampleThingMerge.json')
+            basepath = os.path.dirname(__file__)
+            parent = os.path.abspath(os.path.join(basepath, ".."))
+            new_schema_file_path = os.path.join(parent,  'data', 'sampleSchemaLocation.json')
+            thing_merge_file_path = os.path.join(parent, 'data', 'sampleThingMerge.json')
 
             #Create schema, that defines the syntax of device's new properties
             schema_create_api = sample_schemas_create.SampleSchemasCreate(self._service_addr, self._token)
-            scheam_uid = schema_create_api.creat_schema(new_schema_file_path)
+            #scheam_uid = schema_create_api.creat_schema(schema_model)
+            scheam_uid = schema_create_api.creat_schema_from_file(new_schema_file_path)
+
+
 
             # Get things by a specific manufacture ID
             by_man_things = self._api.get_things(key="uniqueIdentifiers.manufacturingId", value=device_manufacture_id,
@@ -68,13 +74,14 @@ class SampleExtendThings(object):
     def update_thing(self, account_alias):
         try:
             device_manufacture_id = 'a151c893-c7bc-48d6-8494-7e7775dcf3e5'
-            parent = os.path.normpath(os.path.join(os.getcwd(), ".."))
-            thing_update_file_path = os.path.join(parent, 'sample', 'data', 'sampleThingUpdate.json')
-            new_schema_file_path = os.path.join(parent, 'sample', 'data', 'sampleSchemaLocation.json')
+            basepath = os.path.dirname(__file__)
+            parent = os.path.abspath(os.path.join(basepath, ".."))
+            thing_update_file_path = os.path.join(parent, 'data', 'sampleThingUpdate.json')
+            new_schema_file_path = os.path.join(parent, 'data', 'sampleSchemaLocation.json')
 
             # Create schema, that defines the syntax of device's new properties
             schema_create_api = sample_schemas_create.SampleSchemasCreate(self._service_addr, self._token)
-            schema_create_api.creat_schema(new_schema_file_path)
+            schema_create_api.creat_schema_from_file(new_schema_file_path)
 
             # Get things by a specific manufacture ID
             by_man_things = self._api.get_things(key="uniqueIdentifiers.manufacturingId", value=device_manufacture_id,

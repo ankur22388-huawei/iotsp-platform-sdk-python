@@ -1,3 +1,4 @@
+#Copyright (c) 2016 by Cisco Systems, Inc. All rights reserved.
 
 from com.cisco.iotsp.sdk.users.client import *
 from com.cisco.iotsp.sdk.users.client.rest import ApiException

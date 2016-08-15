@@ -1,8 +1,9 @@
+#Copyright (c) 2016 by Cisco Systems, Inc. All rights reserved.
 from com.cisco.iotsp.helper import authentication_helper
 from com.cisco.iotsp.sample import sample_thing_credentials_create
 from com.cisco.iotsp.sample import sample_http_device_connector
 from com.cisco.iotsp.sample import sample_last_n_observations
-from com.cisco.iotsp.sample import sample_things_create
+from com.cisco.iotsp.sample import sample_things
 import os.path
 import os
 import time
@@ -22,9 +23,10 @@ class SamplePostObservation(object):
             '''
             Step 1. Create thing
 			'''
-            thing_api = sample_things_create.SampleThingsCreate(self._service_address, self._user_account_access_token)
-            parent = os.path.normpath(os.path.join(os.getcwd(), ".."))
-            file_thing = os.path.join(parent, 'sample', 'data', 'sampleThing.json')
+            thing_api = sample_things.SampleThings(self._service_address, self._user_account_access_token)
+            basepath = os.path.dirname(__file__)
+            parent = os.path.abspath(os.path.join(basepath, ".."))
+            file_thing = os.path.join(parent, 'data', 'sampleThing.json')
             thing_uid = thing_api.create_thing(file_thing, account_alias)
             time.sleep(1)
 
